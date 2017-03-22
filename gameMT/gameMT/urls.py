@@ -1,13 +1,16 @@
 from django.conf.urls import patterns, include, url
 
 # Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from django.contrib import admin
+from gameMT.views import * 
+from views import * 
+
+admin.autodiscover()
 
 urlpatterns = patterns('',
     # Examples:
-    # url(r'^$', 'gameMT.views.home', name='home'),
-    # url(r'^gameMT/', include('gameMT.foo.urls')),
+    #url(r'^$', 'gameMT.views.home', name='home'),
+    url(r'^$', index),
     url(r'^admin/', include(admin.site.urls)),
     url(r'login/$', login_view),
     url(r'register/$', register),

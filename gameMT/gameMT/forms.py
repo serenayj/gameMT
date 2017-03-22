@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from sampleapp.models import User,Items
+from gameMT.models import User,Items
 
 
 class UserForm(ModelForm):

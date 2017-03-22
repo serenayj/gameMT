@@ -11,7 +11,8 @@ from django.contrib import auth
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.shortcuts import render_to_response
-from chat.models import ChatRoom
+from django.template import loader
+from django.http import HttpResponse
 
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.csrf import csrf_exempt
@@ -24,11 +25,12 @@ def index(request):
         user_id = request.user.id
         user = User.objects.get(id=user_id)
         username = user.first_name + ' ' + user.last_name
-        chat_rooms = ChatRoom.objects.order_by('name')[:5]
+        #chat_rooms = ChatRoom.objects.order_by('name')[:5]
 
         if username.isspace():
         	username = user.username
-        return render(request, 'index.html', Context({'username': username, 'user_id': user_id, 'chat_list': chat_rooms,}))
+        return render(request, 'index.html', Context({'username': username, 'user_id': user_id})) 
+        #return render(request, 'index.html', Context({'username': username, 'user_id': user_id, 'chat_list': chat_rooms,}))
     else: # return the "select a forum" page.
         request.session['currUserId'] = -1  # set -1 for anonymous user.
         return render(request, 'index.html', Context({ 'username': 'Visitor', 'user_id': '-1',}))
@@ -64,7 +66,7 @@ def login_view(request):
        
     else:
         request.session['currUserId'] = -1
-        return HttpResponse("Your user name and/or password is incorrect.", status=403)
+        return HttpResponse("Your user name and/or password is incorrect!!!!.", status=403)
 
 
 @csrf_exempt
